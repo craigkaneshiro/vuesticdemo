@@ -80,6 +80,12 @@ export default new Router({
       component: AppLayout,
       children: [
         {
+          name: 'demo',
+          path: 'demo',
+          component: () => import('../components/demo/demo-form/DemoForm.vue'),
+          default: true,
+        },
+        {
           name: 'dashboard',
           path: 'dashboard',
           component: () => import('../components/dashboard/Dashboard.vue'),

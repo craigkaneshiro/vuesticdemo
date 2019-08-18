@@ -8,7 +8,7 @@ export const navigationRoutes = {
       name: 'demo',
       displayName: 'menu.demo',
       meta: {
-        iconClass: 'vuestic-iconset-forms',
+        iconClass: 'vuestic-iconset-components',
       },
     },
     {
