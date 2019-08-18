@@ -5,6 +5,13 @@ export const navigationRoutes = {
   },
   routes: [
     {
+      name: 'demo',
+      displayName: 'menu.demo',
+      meta: {
+        iconClass: 'vuestic-iconset-forms',
+      },
+    },
+    {
       name: 'dashboard',
       displayName: 'menu.dashboard',
       meta: {
