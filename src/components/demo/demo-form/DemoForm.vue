@@ -38,7 +38,14 @@
 
       <div class="flex xs12">
         <va-card title="Java API Results">
-          {{simpleResult}}
+          <div class="my-3">
+            <p class="display-4">Content</p>
+            <div v-if="simpleResult">{{simpleResult.data.content}}</div>
+          </div>
+          <div class="my-3">
+            <p class="display-4">Raw Data</p>
+            <div>{{simpleResult}}</div>
+          </div>
         </va-card>
       </div>
     </div>
