@@ -2,6 +2,49 @@
   <div class="form-elements">
     <div class="row">
       <div class="flex xs12">
+          <va-card title="Axios Demo">
+            <div class="mb-4">
+              <p class="display-1">Bitcoin Price Index</p>
+              Demonstrating use of axios to call external api (https://api.coindesk.com/v1/bpi/currentprice.json)
+            </div>
+          </va-card>
+      </div>
+      <div class="flex xs12 sm4" v-for="(currency, idx) in info" :key="idx">
+        <va-card class="mb-4" color='success'>
+          <p class="display-2 mb-0" style="color: white"><span v-html="currency.symbol"></span>{{ currency.rate_float | currencydecimal }}</p>
+          <p>{{ currency.description }}</p>
+        </va-card>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="flex xs12">
+        <va-card title="Java API Get / Form Demo">
+          <form>
+            <div class="row">
+              <div class="flex md4 sm6 xs12">
+                <va-input
+                  v-model="simple"
+                  placeholder="Text Input"
+                />
+              </div>
+              <div class="flex md4 sm6 xs12">
+                <va-button v-on:click="getGreetingData">Submit</va-button>
+              </div>
+            </div>
+          </form>
+        </va-card>
+      </div>
+
+      <div class="flex xs12">
+        <va-card title="Java API Results">
+          {{simpleResult}}
+        </va-card>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="flex xs12">
         <va-card :title="$t('forms.inputs.title')">
           <form>
             <div class="row">
@@ -294,9 +337,10 @@
 
 <script>
 import CountriesList from '../../../data/CountriesList'
+import axios from 'axios'
 
 export default {
-  name: 'form-elements',
+  name: 'demo-form',
   components: {},
   data () {
     return {
@@ -358,17 +402,36 @@ export default {
         customFirstDay: '2018-05-09',
         customDate: '2017-Dec-06',
       },
+      info: null,
+      simpleResult: null,
     }
   },
   methods: {
     clear (field) {
       this[field] = ''
     },
+
+    getGreetingData: function () {
+      axios
+        .get('http://localhost:8080/greeting?name=' + this.simple)
+        .then(response => (this.simpleResult = response))
+    },
   },
   created () {
     this.$nextTick(() => {
       this.$validator.validateAll()
     })
+  },
+
+  filters: {
+    currencydecimal (value) {
+      return value.toFixed(2)
+    },
+  },
+  mounted () {
+    axios
+      .get('https://api.coindesk.com/v1/bpi/currentprice.json')
+      .then(response => (this.info = response.data.bpi))
   },
 }
 </script>
